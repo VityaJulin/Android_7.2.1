@@ -1,8 +1,12 @@
 package com.example.android_721;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,5 +21,29 @@ public class MainActivity extends AppCompatActivity {
 
         address = findViewById(R.id.edTxt_enter_address);
         search = findViewById(R.id.btn_search);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String userSearch = address.getText().toString();
+                if (userSearch.equals("")) {
+                    Toast.makeText(MainActivity.this, R.string.hint_enter_address, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (isGeoCoordinates(userSearch)) {
+                    Uri uri = Uri.parse("geo:" + userSearch);
+                }
+
+                Uri uri = Uri.parse("geo:?q=" + userSearch);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public boolean isGeoCoordinates(String string) {
+            Character.isLetter(string.charAt(0));
+        return false;
     }
 }
