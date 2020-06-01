@@ -31,19 +31,19 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (isGeoCoordinates(userSearch)) {
-                    Uri uri = Uri.parse("geo:" + userSearch);
+                Uri uri;
+                if (isAddress(userSearch)) {
+                    uri = Uri.parse("geo:?q=" + userSearch);
+                } else {
+                    uri = Uri.parse("geo:" + userSearch);
                 }
-
-                Uri uri = Uri.parse("geo:?q=" + userSearch);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
     }
 
-    public boolean isGeoCoordinates(String string) {
-            Character.isLetter(string.charAt(0));
-        return false;
+    public boolean isAddress(String string) {
+        return Character.isLetter(string.charAt(0));
     }
 }
